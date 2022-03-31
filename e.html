@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Учим слова</title>
+    <script type="text/javascript" src="words.js"> </script>
+    <script type="text/javascript" src="chari.js"> </script>
+    <style>
+        body {
+            background-color: #333333; 
+            font-size: 18pt;
+            font-family: sans-serif;
+            color: #8b8683;
+        }
+        
+        #black {
+            max-width:410px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        h2 {
+            font-size: 15pt;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        form {
+            width: 400px;
+            margin: 50px;
+            background-color: #111111;
+            border: none;
+            float:left;
+            margin-right:5px;
+            margin-left: 5px;
+        }
+      
+        a {
+            text-decoration: none;
+            cursor: pointer;
+            display:block;
+            width: 95%;
+            background-color: #e3e3e3;;
+            margin-top: 20px;
+            color: black;
+            font-weight: bold;
+            padding: 10px;
+        }
+        
+        label {
+            display:block;
+           
+        }
+        
+        a:hover {
+            background-color: lightyellow;
+        }
+        
+        input, select {
+            width: 100%;
+            height: 30px;
+            background-color: #333333;
+            border: none;
+            font-size: 18pt;
+            color: #c6beb8;
+        }
+        
+        button {
+            width: 100px;
+            font-size: 18pt;
+            margin-top: 10px;
+        }
+        
+        .checkbox {
+	width: 20px;
+	height: 20px;
+	border: 2px solid #ccc;
+	border-radius: 3px;
+	position: relative;
+}
+       
+    
+    .forCheckbox {
+            display:block;
+            width: 40%;
+            font-size: 0.8em;
+            float:left;
+            
+        }
+        
+
+        
+
+        
+        @media screen and (max-device-width:480px) {
+           form {
+               width: 100%;
+               margin:0;}
+        }
+    </style>
+   
+    <script>
+       
+		
+		var rang;
+		var rang2;
+		var errorWords;
+		var slovoNaRusskom;
+		var slovoNaRusskom2;
+		var slovoNaAngliiskom;
+		var slovoNaAngliiskom2;
+		var scet = 1;
+		var otvet = 0;
+		var scet2 = 1;
+		var otvet2 = 0;
+		
+		
+		
+		
+		
+		var keys2;
+		
+		var errors = {};
+        
+        function itogo() {
+            
+        
+		   var keys = Object.keys(words);
+		
+            
+		   rang = Math.floor(Math.random() * keys.length);
+           document.forms.howMany.elements.itogo.value = keys[rang];
+           slovoNaRusskom = document.forms.howMany.elements.itogo.value;
+        }
+        
+        function errorsFunction() {
+            keys2 = Object.keys(errors);
+        }
+        
+        function itogo2() {
+           
+		   rang2 = Math.floor(Math.random() * keys2.length);
+           document.forms.howMany.elements.itogo2.value = keys2[rang2];
+           slovoNaRusskom2 = document.forms.howMany.elements.itogo2.value;
+        }
+        
+        function result2() {
+            
+        
+		    var result = words;
+		
+            
+            
+            slovoNaAngliiskom2 = document.forms.howMany.elements.onEnglish2.value.toLowerCase().trim();
+            if(result[slovoNaRusskom2] == slovoNaAngliiskom2) {
+                document.forms.howMany.elements.result2.value = "Верно!";
+                otvet2++;
+            } else {
+                document.forms.howMany.elements.result2.value = "Не верно";
+                document.forms.howMany.elements.onEnglish2.value = result[slovoNaRusskom2];
+               
+            }
+            document.forms.howMany.elements.scet2.value = otvet2 + " из " + scet2;
+            scet2++;
+            
+            
+            
+        }
+        
+        function result() {
+            
+        
+		    var result = words;
+		
+            
+            
+            slovoNaAngliiskom = document.forms.howMany.elements.onEnglish.value.toLowerCase().trim();
+            if(result[slovoNaRusskom] == slovoNaAngliiskom) {
+                document.forms.howMany.elements.result.value = "Верно!";
+                otvet++;
+            } else {
+                document.forms.howMany.elements.result.value = "Не верно";
+                document.forms.howMany.elements.onEnglish.value = result[slovoNaRusskom];
+                errorWords = document.forms.howMany.elements.itogo.value.toLowerCase().trim();
+                errors[errorWords] = result[slovoNaRusskom];
+            }
+            document.forms.howMany.elements.scet.value = otvet + " из " + scet;
+            scet++;
+            
+            
+        }
+    
+    </script>
+
+</head>
+<body>
+
+
+
+ <div id="black">
+  <form name="howMany">
+  <h2 style="padding: 10px; color:#CFCFBF;">Учим слова:</h2>
+
+    <fieldset > 
+    <!--
+        <label style="display:none;">Текстовый файл:
+            <select name="fail">
+                <option value="words">om.js</option>
+                <option value="chari">chari.js</option>
+                
+            </select>
+        </label><br />
+    --> 
+        <a href="javascript:itogo()">Click!</a><br />
+        <label>Переведи:<input type="text" name='itogo' ></label><br />
+        
+        <label>Напиши на английском:<input type="text" name='onEnglish' ></label><br />
+        
+        <a href="javascript:result()">Результат</a><br />
+        
+        <label><input type="text" name='result' ></label><br />
+        
+        <label>Количество правильных ответов:<input type="text" name='scet' ></label><br />
+        <!--
+        <a href="javascript:errorsFunction()">Подготовить</a><br />
+        
+        <a href="javascript:itogo2()">Click!</a><br />
+        
+            <label>Повторить:<input type="text" name='itogo2' ></label><br />
+        <label>Переведи:<input type="text" name='onEnglish2' ></label><br />
+        <a href="javascript:result2()">Результат</a><br />
+        <label><input type="text" name='result2' ></label><br />
+        <label>Количество правильных ответов:<input type="text" name='scet2' ></label><br />
+    </fieldset>
+        -->
+        
+         
+         </form>
+    
+   
+</div>
+
+</body>
+</html>
